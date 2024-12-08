@@ -3,10 +3,12 @@ import tkinter as tk
 import time
 
 def pull_button_clicked(eventlog):
-    eventlog.config(text=pull_saves())
+    output = pull_saves()
+    eventlog.config(text=output.stdout if output.stdout else output.stderr)
 
 def push_button_clicked(eventlog):
-    eventlog.config(text=push_saves())
+    output = push_saves()
+    eventlog.config(text=output.stdout if output.stdout else output.stderr)
 
 def settings_button_clicked(eventlog):
     eventlog.config(text="opening settings.json")
