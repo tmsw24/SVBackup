@@ -1,0 +1,5 @@
+{
+    "saves_directory": "/sdcard/Android/data/com.chucklefish.stardewvalley/files/Saves",
+    "mobile_directory": "/sdcard/Documents/SVBackup",
+    "computer_directory": "./backup"
+}
