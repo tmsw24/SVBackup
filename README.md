@@ -5,6 +5,7 @@ A simple tool for backing up and restoring your Stardew Valley saves from an And
 - A **command-line interface (CLI)**
 - A **graphical user interface (GUI)**
 - Configurable paths stored in `settings.json`
+- Ability to fix the UI of imported save files
 
 ## Requirements
 - A Windows operating system
@@ -28,7 +29,7 @@ python svbackup.py
 ```
 
 #### Graphical User Interface (GUI)
-Navigate to the projects directory a terminal or file explorer and run `svbackupgui.pyw`.
+Navigate to the projects directory using a terminal or file explorer and run `svbackupgui.pyw`.
 
 ### 3. Pulling / Pushing
 #### Pull
@@ -36,6 +37,19 @@ Choosing the **pull** option transfers your Stardew Valley saves from your Andro
 
 #### Push
 Choosing the **push** option transfers your Stardew Valley saves from your PC to your Android device.
+
+### 4. Fixing the UI
+#### Command-Line Interface (CLI)
+The zoom level and UI scale on Stardew Valley mobile may cause issues on PC. You can fix this by running:
+
+```
+python svbackup.py fixui [filepath]
+```
+
+Make sure the file you selected looks like this: `farmname_123456789`.
+
+#### Graphical User Interface (GUI)
+Navigate to the projects directory using a terminal or file explorer and run `fixui.pyw`.
 
 ## Contributing
 Contributions are welcome. Feel free to fork the repository and submit a pull request. For major changes, please open an issue first to discuss what you would like to change.
