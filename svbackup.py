@@ -1,3 +1,4 @@
+import xml.etree.ElementTree as etree
 import argparse
 import json
 import os
@@ -33,11 +34,27 @@ def push_saves():
     subprocess.run(f"{curdir}/platform-tools/adb.exe shell mkdir {dest}")
     return subprocess.run(f"{curdir}/platform-tools/adb.exe push {src} {dest}", capture_output=True, text=True, shell=True)
 
+def fix_ui(savefile):
+    tree = etree.parse(savefile)
+    root = tree.getroot()
+
+    zoom_level = root.find(".//zoomLevel")
+    if zoom_level is not None:
+        zoom_level.text = "1.0" # Reset the zoom level back to default
+
+    ui_scale = root.find(".//uiScale")
+    if ui_scale is not None:
+        ui_scale.text = "1.0" # Reset the ui scale back to default
+    
+    tree.write(savefile, encoding="utf-8", xml_declaration=True)
+
 def main():
     parser = argparse.ArgumentParser(description="Stardew Valley Backup Tool")
     subparsers = parser.add_subparsers(dest="command", help="list of commands")
     subparsers.add_parser("pull", help="transfers saves from the device to the computer")
     subparsers.add_parser("push", help="transfers saves from the computer to the device")
+    fix_ui_parser = subparsers.add_parser("fixui", help="fixes the ui of a given save file")
+    fix_ui_parser.add_argument("filepath", type=str, help="the path of the save file")
     subparsers.add_parser("settings", help="opens settings.json")
     args = parser.parse_args()
 
@@ -48,6 +65,9 @@ def main():
         case "push":
             output = push_saves()
             print(output.stdout if output.stdout else output.stderr)
+        case "fixui":
+            fix_ui(args.filepath)
+            print("ui fixed")
         case "settings":
             open_settings()
         case _:
